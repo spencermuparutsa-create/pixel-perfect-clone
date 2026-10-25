@@ -10,11 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DiscoveriesRouteImport } from './routes/discoveries'
 import { Route as JourneyRouteImport } from './routes/journey'
+import { Route as LabRouteImport } from './routes/lab'
+import { Route as QuizRouteImport } from './routes/quiz'
+import { Route as TimelineRouteImport } from './routes/timeline'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiscoveriesRoute = DiscoveriesRouteImport.update({
+  id: '/discoveries',
+  path: '/discoveries',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JourneyRoute = JourneyRouteImport.update({
@@ -22,31 +31,69 @@ const JourneyRoute = JourneyRouteImport.update({
   path: '/journey',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LabRoute = LabRouteImport.update({
+  id: '/lab',
+  path: '/lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuizRoute = QuizRouteImport.update({
+  id: '/quiz',
+  path: '/quiz',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimelineRoute = TimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/discoveries': typeof DiscoveriesRoute
   '/journey': typeof JourneyRoute
+  '/lab': typeof LabRoute
+  '/quiz': typeof QuizRoute
+  '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/discoveries': typeof DiscoveriesRoute
   '/journey': typeof JourneyRoute
+  '/lab': typeof LabRoute
+  '/quiz': typeof QuizRoute
+  '/timeline': typeof TimelineRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/discoveries': typeof DiscoveriesRoute
   '/journey': typeof JourneyRoute
+  '/lab': typeof LabRoute
+  '/quiz': typeof QuizRoute
+  '/timeline': typeof TimelineRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/journey'
+  fullPaths: '/' | '/discoveries' | '/journey' | '/lab' | '/quiz' | '/timeline'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/journey'
-  id: '__root__' | '/' | '/journey'
+  to: '/' | '/discoveries' | '/journey' | '/lab' | '/quiz' | '/timeline'
+  id:
+    | '__root__'
+    | '/'
+    | '/discoveries'
+    | '/journey'
+    | '/lab'
+    | '/quiz'
+    | '/timeline'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DiscoveriesRoute: typeof DiscoveriesRoute
   JourneyRoute: typeof JourneyRoute
+  LabRoute: typeof LabRoute
+  QuizRoute: typeof QuizRoute
+  TimelineRoute: typeof TimelineRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -58,6 +105,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/discoveries': {
+      id: '/discoveries'
+      path: '/discoveries'
+      fullPath: '/discoveries'
+      preLoaderRoute: typeof DiscoveriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/journey': {
       id: '/journey'
       path: '/journey'
@@ -65,12 +119,37 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JourneyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lab': {
+      id: '/lab'
+      path: '/lab'
+      fullPath: '/lab'
+      preLoaderRoute: typeof LabRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/quiz': {
+      id: '/quiz'
+      path: '/quiz'
+      fullPath: '/quiz'
+      preLoaderRoute: typeof QuizRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timeline': {
+      id: '/timeline'
+      path: '/timeline'
+      fullPath: '/timeline'
+      preLoaderRoute: typeof TimelineRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DiscoveriesRoute: DiscoveriesRoute,
   JourneyRoute: JourneyRoute,
+  LabRoute: LabRoute,
+  QuizRoute: QuizRoute,
+  TimelineRoute: TimelineRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
